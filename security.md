@@ -115,6 +115,7 @@ Mitigation:
 *Reject unauthorized access with HTTP 401/403
 *Ensure AI endpoints are only accessible via secured backend
 
+
 4.Tool-Specific Threat Analysis
 
 4.1 Prompt Injection via User Input
