@@ -1,6 +1,8 @@
 from flask import Blueprint, request, jsonify
+from services.describe_service import generate_description
 
 describe_bp = Blueprint("describe", __name__)
+
 
 @describe_bp.post("/describe")
 def describe():
@@ -10,5 +12,8 @@ def describe():
     if not text:
         return jsonify({"error": "text is required"}), 400
 
-    # Service logic will go here on Day 2
-    return jsonify({"result": "describe endpoint ready", "input": text})
+    if len(text) < 3:
+        return jsonify({"error": "text is too short"}), 400
+
+    result = generate_description(text)
+    return jsonify(result)
