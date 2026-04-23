@@ -9,3 +9,4 @@ chroma_data/
 *.jar
 *.log
 .DS_Store
+/.metadata/
