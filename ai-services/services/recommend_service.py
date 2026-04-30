@@ -42,7 +42,8 @@ def generate_recommendations(text: str) -> dict:
                 }
             ],
             temperature=0.3,
-            max_tokens=1000
+            max_tokens=1000,
+            timeout=30
         )
 
         # Step 4 - Extract AI response
@@ -95,3 +96,4 @@ def fallback_response(text: str) -> dict:
         "status": "success",
         "is_fallback": True
     }
+
