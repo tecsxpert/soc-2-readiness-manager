@@ -1,0 +1,28 @@
+2026-04-27 12:28:08,896 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-27 12:28:08,896 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-27 12:28:08,898 - INFO -  * Restarting with stat
+2026-04-27 12:28:09,290 - WARNING -  * Debugger is active!
+2026-04-27 12:28:09,292 - INFO -  * Debugger PIN: 117-309-599
+2026-04-27 12:29:13,383 - WARNING -  * Debugger is active!
+2026-04-27 12:29:13,384 - INFO -  * Debugger PIN: 117-309-599
+2026-04-27 12:29:13,602 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-27 12:29:13,602 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-27 12:29:13,602 - INFO -  * Restarting with stat
+2026-04-27 12:29:13,931 - WARNING -  * Debugger is active!
+2026-04-27 12:29:13,933 - INFO -  * Debugger PIN: 117-309-599
+2026-04-27 12:30:58,985 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-27 12:30:58,985 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-27 12:30:58,986 - INFO -  * Restarting with stat
+2026-04-27 12:30:59,303 - WARNING -  * Debugger is active!
+2026-04-27 12:30:59,305 - INFO -  * Debugger PIN: 117-309-599
+2026-04-27 12:38:51,227 - WARNING -  * Debugger is active!
+2026-04-27 12:38:51,231 - INFO -  * Debugger PIN: 117-309-599
+2026-04-27 12:38:51,524 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-27 12:38:51,524 - INFO - [33mPress CTRL+C to quit[0m
+2026-04-27 12:38:51,524 - INFO -  * Restarting with stat
+2026-04-27 12:38:52,015 - WARNING -  * Debugger is active!
+2026-04-27 12:38:52,017 - INFO -  * Debugger PIN: 117-309-599
