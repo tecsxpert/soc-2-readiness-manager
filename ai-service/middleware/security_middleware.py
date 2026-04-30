@@ -2,7 +2,7 @@ import re
 import logging
 from flask import request, jsonify
 
-#  Patterns to detect malicious input
+# Patterns to detect malicious input
 SUSPICIOUS_PATTERNS = [
     r"ignore previous instructions",
     r"system prompt",
@@ -14,11 +14,11 @@ SUSPICIOUS_PATTERNS = [
     r";"
 ]
 
-#  Max allowed input size
+# Max allowed input size
 MAX_INPUT_LENGTH = 500
 
 
-#  Check for malicious patterns
+# Check for malicious patterns
 def is_malicious(input_text):
     input_text = input_text.lower()
     for pattern in SUSPICIOUS_PATTERNS:
@@ -42,7 +42,19 @@ def sanitize_input(data):
     return data
 
 
-#  Main middleware function
+#  PII detection (Day 9) — CORRECT PLACE
+def contains_pii(text):
+    email_pattern = r"[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+"
+    phone_pattern = r"\b\d{10}\b"
+
+    if re.search(email_pattern, text):
+        return True
+    if re.search(phone_pattern, text):
+        return True
+    return False
+
+
+# Main middleware function
 def security_middleware():
 
     # Apply only for POST and PUT requests
@@ -58,7 +70,7 @@ def security_middleware():
 
         # Input too large
         if len(str(data)) > MAX_INPUT_LENGTH:
-            logging.warning(f"Blocked large input: {data}")
+            logging.warning("Blocked large input")
 
             return jsonify({
                 "error": "Input too large",
@@ -71,9 +83,16 @@ def security_middleware():
         # Convert to string for pattern checking
         combined_text = str(clean_data)
 
+        #  PII DETECTION (correct placement)
+        if contains_pii(combined_text):
+            logging.warning("Blocked request containing possible PII")
+            return jsonify({
+                "error": "Sensitive data not allowed"
+            }), 400
+
         # Malicious input detected
         if is_malicious(combined_text):
-            logging.warning(f"Blocked malicious input: {combined_text}")
+            logging.warning("Blocked malicious input")
 
             return jsonify({
                 "error": "Malicious input detected",
