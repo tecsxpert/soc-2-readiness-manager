@@ -4,6 +4,7 @@ dev_token.txt
 
 # Build and runtime outputs
 target/
+uploads/
 node_modules/
 __pycache__/
 chroma_data/
