@@ -2,7 +2,7 @@ import re
 import logging
 from flask import request, jsonify
 
-#  Patterns to detect malicious input
+# Patterns to detect malicious input
 SUSPICIOUS_PATTERNS = [
     r"ignore previous instructions",
     r"system prompt",
@@ -14,11 +14,11 @@ SUSPICIOUS_PATTERNS = [
     r";"
 ]
 
-#  Max allowed input size
+# Max allowed input size
 MAX_INPUT_LENGTH = 500
 
 
-#  Check for malicious patterns
+# Check for malicious patterns
 def is_malicious(input_text):
     input_text = input_text.lower()
     for pattern in SUSPICIOUS_PATTERNS:
@@ -42,24 +42,54 @@ def sanitize_input(data):
     return data
 
 
-#  Main middleware function
+# PII detection
+def contains_pii(text):
+    email_pattern = r"[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+"
+    phone_pattern = r"\b\d{10}\b"
+
+    if re.search(email_pattern, text):
+        return True
+    if re.search(phone_pattern, text):
+        return True
+    return False
+
+
+# Main middleware function
 def security_middleware():
 
     # Apply only for POST and PUT requests
     if request.method in ["POST", "PUT"]:
 
+        # JWT AUTH CHECK (Day 10)
+        token = request.headers.get("Authorization")
+
+        if not token:
+            logging.warning("Blocked request without JWT token")
+            return jsonify({
+                "error": "Unauthorized",
+                "message": "JWT token missing"
+            }), 401
+
+        # Check Bearer format
+        if not token.startswith("Bearer "):
+            logging.warning("Invalid JWT format")
+            return jsonify({
+                "error": "Unauthorized",
+                "message": "Invalid token format"
+            }), 401
+
+        # Get JSON data
         data = request.get_json(silent=True)
 
         # Invalid or empty input
-        if not data:
-            return jsonify({
-                "error": "Invalid or empty JSON input"
-            }), 400
+        if data is None:
+         return jsonify({
+        "error": "Invalid or empty JSON input"
+    }), 400
 
         # Input too large
         if len(str(data)) > MAX_INPUT_LENGTH:
-            logging.warning(f"Blocked large input: {data}")
-
+            logging.warning("Blocked large input")
             return jsonify({
                 "error": "Input too large",
                 "message": "Maximum allowed size exceeded"
@@ -68,20 +98,26 @@ def security_middleware():
         # Sanitize input
         clean_data = sanitize_input(data)
 
-        # Convert to string for pattern checking
+        # Convert to string for checks
         combined_text = str(clean_data)
 
-        # Malicious input detected
-        if is_malicious(combined_text):
-            logging.warning(f"Blocked malicious input: {combined_text}")
+        # PII detection
+        if contains_pii(combined_text):
+            logging.warning("Blocked request containing possible PII")
+            return jsonify({
+                "error": "Sensitive data not allowed"
+            }), 400
 
+        # Malicious input detection
+        if is_malicious(combined_text):
+            logging.warning("Blocked malicious input")
             return jsonify({
                 "error": "Malicious input detected",
                 "message": "Request blocked due to security policy"
             }), 400
 
-        # Replace request data with sanitized version
-        request._cached_json = clean_data
+        # Store cleaned data
+        request.cleaned_data = clean_data
 
-    # If everything is fine → allow request
+    # Allow request if everything is valid
     return None
