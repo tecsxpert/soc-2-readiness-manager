@@ -5,8 +5,10 @@ import com.campuspe.soc2_readiness_manager.config.JwtUtil;
 public class GenerateDevToken {
 
     public static void main(String[] args) {
-        // Use the exact same values from backend/.env
-        String secret = "this-is-a-development-only-secret-key-that-must-be-at-least-32-chars";
+        String secret = System.getenv("JWT_SECRET");
+        if (secret == null || secret.isBlank()) {
+            throw new IllegalStateException("JWT_SECRET environment variable is not set");
+        }
         long expirationMs = 86400000L;
 
         JwtUtil jwtUtil = new JwtUtil(secret, expirationMs);

@@ -62,7 +62,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(org.springframework.web.multipart.MaxUploadSizeExceededException.class)
     public ResponseEntity<ErrorResponse> handleMaxUploadSizeExceededException(org.springframework.web.multipart.MaxUploadSizeExceededException ex) {
-        return buildErrorResponse(HttpStatus.PAYLOAD_TOO_LARGE, "File size exceeds the configured maximum limit (10MB)", null);
+        return buildErrorResponse(HttpStatus.valueOf(413), "File size exceeds the configured maximum limit (10MB)", null);
     }
 
     @ExceptionHandler(Exception.class)
