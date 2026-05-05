@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class JwtUtilTest {
 
     private JwtUtil jwtUtil;
-    private final String secret = "mySecretKeyMustBeAtLeast32BytesLongForHmacSha256!";
+    private final String secret = java.util.UUID.randomUUID().toString() + java.util.UUID.randomUUID().toString();
     private final long expirationMs = 3600000; // 1 hour
 
     @BeforeEach
