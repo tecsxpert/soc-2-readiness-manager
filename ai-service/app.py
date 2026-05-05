@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import logging
+from flask_talisman import Talisman
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from middleware.security_middleware import security_middleware
@@ -15,6 +16,14 @@ logging.basicConfig(
 
 # CREATE APP
 app = Flask(__name__)
+csp = {
+    'default-src': ['\'self\''],
+    'script-src': ['\'self\''],
+    'style-src': ['\'self\''],
+    'img-src': ['\'self\'', 'data:'],
+}
+
+Talisman(app, content_security_policy=csp, force_https=False)
 
 
 # RATE LIMITER 
@@ -59,7 +68,6 @@ def generate_report():
     })
 
 #  SECURITY HEADERS 
-
 @app.after_request
 def add_security_headers(response):
     response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self';"
@@ -74,7 +82,7 @@ def add_security_headers(response):
 
 if __name__ == "__main__":
     print("Starting Flask server on http://127.0.0.1:5000")
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(host="127.0.0.1", port=5000, debug=True)
   
 
 
