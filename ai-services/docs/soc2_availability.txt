@@ -1,0 +1,32 @@
+Availability in SOC 2 Compliance
+
+Availability is one of the five Trust Service Criteria in SOC 2
+compliance. It refers to the accessibility of systems, products, or
+services as committed or agreed upon in service level agreements.
+Organizations must ensure their systems are available and operational
+to meet the needs of their customers and stakeholders.
+
+System availability requires organizations to implement controls that
+prevent and detect system failures, monitor system performance, and
+restore services quickly when disruptions occur. This includes
+establishing redundancy measures such as backup systems, failover
+mechanisms, and load balancing to ensure continuous service delivery.
+
+Organizations must maintain documented procedures for managing system
+capacity and performance. This includes monitoring system resources
+such as CPU usage, memory utilization, and storage capacity to prevent
+performance degradation. Capacity planning should be conducted
+regularly to ensure systems can handle current and future workloads.
+
+Disaster recovery planning is a critical component of availability
+management. Organizations must develop and test disaster recovery plans
+that outline procedures for restoring systems and data in the event of
+a major disruption. Recovery time objectives and recovery point
+objectives must be defined and validated through regular testing.
+
+Auditors assess availability controls by reviewing system monitoring
+logs, incident records, and disaster recovery test results. They verify
+that organizations have implemented appropriate controls to meet their
+availability commitments and that systems are performing as expected.
+Evidence of regular system maintenance, patch management, and capacity
+planning activities is also reviewed during SOC 2 audits.

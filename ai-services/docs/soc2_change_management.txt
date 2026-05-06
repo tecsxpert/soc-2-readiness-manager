@@ -1,0 +1,33 @@
+Change Management in SOC 2 Compliance
+
+Change management is a critical control area in SOC 2 compliance that
+governs how organizations plan, approve, implement, and review changes
+to their systems, applications, and infrastructure. Effective change
+management ensures that changes are made in a controlled and systematic
+manner to minimize the risk of disruptions to services and security.
+
+A formal change management process requires organizations to document
+all proposed changes, including the purpose, scope, and potential
+impact of each change. Changes must be reviewed and approved by
+authorized personnel before implementation. This approval process
+ensures that changes are properly evaluated for potential risks and
+that appropriate testing has been conducted.
+
+Organizations must implement procedures for testing changes in a
+non-production environment before deploying them to production systems.
+Testing should verify that changes function as intended and do not
+introduce new vulnerabilities or break existing functionality. Change
+rollback procedures must also be documented and tested to ensure
+systems can be restored if a change causes unexpected issues.
+
+Emergency change procedures must be established for urgent changes that
+cannot follow the standard change management process. These procedures
+should still require appropriate authorization and documentation, even
+if the approval process is expedited. All emergency changes must be
+reviewed after implementation to ensure they were necessary and
+properly executed.
+
+Auditors assess change management controls by reviewing change request
+records, approval workflows, testing documentation, and deployment
+logs. They verify that all changes have been properly authorized and
+tested before implementation and that rollback procedures are in place.

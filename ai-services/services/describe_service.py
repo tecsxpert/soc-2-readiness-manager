@@ -2,15 +2,14 @@ import os
 from datetime import datetime
 from groq import Groq
 from dotenv import load_dotenv
+from services.cache_service import get_from_cache, set_in_cache
 
 load_dotenv()
 
-# Initialize Groq client
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 
 def load_prompt_template() -> str:
-    # Load prompt template from prompts folder
     template_path = os.path.join(
         os.path.dirname(__file__),
         "..",
@@ -22,11 +21,14 @@ def load_prompt_template() -> str:
 
 
 def generate_description(text: str) -> dict:
-    try:
-        # Step 1 - Load prompt template
-        template = load_prompt_template()
+    # Step 1 - Check cache first
+    cached = get_from_cache("describe", text)
+    if cached:
+        return cached
 
-        # Step 2 - Replace {input} with actual user input
+    try:
+        # Step 2 - Load prompt template
+        template = load_prompt_template()
         prompt = template.replace("{input}", text)
 
         # Step 3 - Call Groq API
@@ -50,15 +52,21 @@ def generate_description(text: str) -> dict:
         # Step 4 - Extract AI response
         description = response.choices[0].message.content
 
-        # Step 5 - Return structured JSON with generated_at timestamp
-        return {
+        # Step 5 - Build result
+        result = {
             "input": text,
             "description": description,
             "word_count": len(description.split()),
             "generated_at": datetime.utcnow().isoformat(),
             "status": "success",
-            "is_fallback": False
+            "is_fallback": False,
+            "cached": False
         }
+
+        # Step 6 - Save to cache
+        set_in_cache("describe", text, result)
+
+        return result
 
     except FileNotFoundError:
         return {
@@ -67,7 +75,8 @@ def generate_description(text: str) -> dict:
             "word_count": 0,
             "generated_at": datetime.utcnow().isoformat(),
             "status": "failed",
-            "is_fallback": True
+            "is_fallback": True,
+            "cached": False
         }
 
     except Exception as e:
@@ -78,5 +87,6 @@ def generate_description(text: str) -> dict:
             "word_count": 0,
             "generated_at": datetime.utcnow().isoformat(),
             "status": "failed",
-            "is_fallback": True
+            "is_fallback": True,
+            "cached": False
         }
