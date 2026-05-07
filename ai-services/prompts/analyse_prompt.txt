@@ -9,12 +9,16 @@ Return findings as JSON only. No text outside JSON.
         {
             "type": "insight or risk",
             "category": "SOC 2 category",
-            "finding": "specific finding",
+            "finding": "specific finding under 20 words",
             "severity": "info or low or medium or high or critical",
-            "recommendation": "specific action"
+            "recommendation": "specific action under 20 words"
         }
     ],
-    "summary": "1-2 sentence summary"
+    "summary": "one sentence summary under 30 words"
 }
 
-Include at least 3 findings.
+Rules:
+- Include at least 3 findings
+- type must be exactly insight or risk
+- Keep all text fields short and concise
+- Return only valid JSON nothing else
