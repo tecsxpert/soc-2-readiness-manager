@@ -12,10 +12,13 @@ CHROMA_PATH = os.path.join(
 # Collection name
 COLLECTION_NAME = "soc2_knowledge"
 
-# Initialize sentence-transformers embedding function
+# Pre-load embedding model at module import time
+# This ensures model is ready before first request
+print("Pre-loading sentence-transformers model...")
 embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(
     model_name="all-MiniLM-L6-v2"
 )
+print("sentence-transformers model loaded successfully!")
 
 
 def get_chroma_client():
@@ -66,13 +69,11 @@ def load_documents() -> list:
 def ingest_documents():
     collection = get_collection()
 
-    # Check if already ingested
     existing = collection.count()
     if existing > 0:
         print(f"ChromaDB already has {existing} chunks. Skipping ingestion.")
         return existing
 
-    # Load documents
     documents = load_documents()
     print(f"Loaded {len(documents)} documents")
 
@@ -93,7 +94,6 @@ def ingest_documents():
                 "chunk_index": i
             })
 
-    # Store in ChromaDB
     collection.add(
         documents=all_chunks,
         ids=all_ids,

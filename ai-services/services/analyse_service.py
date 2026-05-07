@@ -42,7 +42,7 @@ def analyse_document(text: str) -> dict:
                 }
             ],
             temperature=0.3,
-            max_tokens=2000,
+            max_tokens=3000,
             timeout=30
         )
 
@@ -50,10 +50,20 @@ def analyse_document(text: str) -> dict:
         result = response.choices[0].message.content.strip()
 
         # Step 5 - Clean response if needed
-        if result.startswith("```"):
+        if "```json" in result:
+            result = result.split("```json")[1]
+            result = result.split("```")[0]
+        elif "```" in result:
             result = result.split("```")[1]
             if result.startswith("json"):
                 result = result[4:]
+
+        # Remove any trailing content after closing brace
+        result = result.strip()
+        if not result.endswith("}"):
+            last_brace = result.rfind("}")
+            if last_brace != -1:
+                result = result[:last_brace + 1]
 
         # Step 6 - Parse JSON response
         analysis = json.loads(result)
