@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify
 from services.chroma_client import get_collection
+from services.cache_service import get_cache_stats
 import time
 
 START_TIME = time.time()
@@ -20,12 +21,16 @@ def health_check():
         chroma_count = 0
         chroma_status = "error"
 
+    # Check Redis cache status
+    cache_stats = get_cache_stats()
+
     return jsonify({
         "status": "ok",
         "uptime_seconds": uptime_seconds,
         "model": "llama-3.3-70b-versatile",
         "chroma_status": chroma_status,
         "chroma_chunks": chroma_count,
+        "cache": cache_stats,
         "service": "ai-service",
         "version": "1.0.0"
     })

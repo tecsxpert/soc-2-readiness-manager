@@ -1,0 +1,34 @@
+Data Privacy in SOC 2 Compliance
+
+Data privacy is a Trust Service Criteria in SOC 2 compliance that
+addresses how organizations collect, use, retain, disclose, and
+dispose of personal information. Organizations that handle personal
+data must implement appropriate controls to protect individual privacy
+rights and comply with applicable privacy regulations such as GDPR
+and CCPA.
+
+Organizations must establish a comprehensive privacy policy that
+clearly communicates how personal information is collected and used.
+The privacy policy should describe the types of personal data
+collected, the purposes for which data is used, and the rights of
+individuals regarding their personal information. Privacy notices must
+be provided to individuals at the time of data collection.
+
+Data minimization principles require organizations to collect only
+the personal information necessary for specified purposes. Organizations
+should regularly review their data collection practices to ensure they
+are not collecting excessive personal information. Retention schedules
+must be established to define how long personal data is retained and
+procedures for securely disposing of data that is no longer needed.
+
+Individual rights management is an important aspect of data privacy
+compliance. Organizations must implement procedures for handling
+requests from individuals to access, correct, or delete their personal
+information. These requests must be processed within required timeframes
+and documented to demonstrate compliance with privacy regulations.
+
+Auditors assess privacy controls by reviewing privacy policies, data
+inventories, consent records, and individual rights request procedures.
+They verify that organizations have implemented appropriate controls
+to protect personal information and comply with applicable privacy
+regulations and commitments made to customers and stakeholders.
