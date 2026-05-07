@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+chroma_data/
+venv/
+.idea/
+.pytest_cache/
+tests/
+*.md
+.gitignore
